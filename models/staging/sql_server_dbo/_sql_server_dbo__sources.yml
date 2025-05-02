@@ -28,7 +28,7 @@ sources:
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
-       - name: EVENTS
+      - name: EVENTS
         loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: EVENT_ID
