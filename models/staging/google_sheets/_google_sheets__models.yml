@@ -4,7 +4,7 @@ models:
   - name: stg_google_sheets_budget
 
     columns:
-      - name: budget
+      - name: _row
         tests:
          - not_null
          - unique
