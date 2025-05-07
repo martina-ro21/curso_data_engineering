@@ -11,14 +11,14 @@ WITH src_users AS (
 
 renamed_casted AS (
     SELECT
-           user_id
+           {{ dbt_utils.generate_surrogate_key(['user_id']) }}
          , updated_at
-         , address_id
-         , last_name
+         , {{ dbt_utils.generate_surrogate_key(['address_id']) }}
+         , first_name AS nombre
+         , last_name AS primer_apellido
          , created_at
-         , phone_number
+         , phone_number 
          , total_orders
-         , first_name
          , email
          , _fivetran_deleted
          , _fivetran_synced as date_load

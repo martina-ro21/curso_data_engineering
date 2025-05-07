@@ -247,7 +247,7 @@ models:
         data_type: number
         description: ""
 
-      - name: first_name
+      - name: nombre
         data_type: varchar
         description: ""
 
