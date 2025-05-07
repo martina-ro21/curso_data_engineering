@@ -2,37 +2,64 @@ version: 2
 
 sources:
   - name: sql_server_dbo
-    description: ""
+    description: "Base de datos del negocio"
+    database: ALUMNO21_DEV_BRONZE_DB
     tables:
       - name: addresses
-        description: ""
+        description: "Direccion de los clientes"
         columns:
           - name: address_id
+            description: "Valor unico de la direccion"
+            tests:
+               - not_null
+               - unique
           - name: zipcode
+            description: "Codigo Postal"
           - name: country
+            description: "Pais"
           - name: address
+            description: "Direccion"
           - name: state
+            description: "Estado del pais en el que esta"
           - name: _fivetran_deleted
+            description: ""
           - name: _fivetran_synced #as date_load
+            description: ""
 
       - name: events
-        description: ""
+        description: "Movimientos hechos"
         columns:
            - name: event_id
+             description: "Valor unico de los movimientos"
+             tests:
+               - not_null
+               - unique
            - name: page_url
+             description: "URL pagina web"
            - name: event_type
+             description: "Tipo de movimiento"
            - name: user_id
+             description: "Valor unico del usuario"
            - name: product_id
+             description: "Valor unico del producto"
            - name: session_id
+             description: "Valor unico de la sesion"
            - name: created_at
+             description: "Cuando fue creada"
            - name: order_id
+             description: "Valor unico de la orden"
            - name: _fivetran_deleted
+             description: ""
            - name: _fivetran_synced #as date_load
+             description: ""
 
       - name: orders
-        description: ""
+        description: "Las ordenes"
         columns:
           - name: order_id
+            tests:
+               - not_null
+               - unique
           - name: shipping_service
           - name: shipping_cost
           - name: address_id
@@ -52,6 +79,9 @@ sources:
         description: ""
         columns:
           - name: order_id
+            tests:
+               - not_null
+               - unique
           - name: product_id
           - name: quantity
           - name: _fivetran_deleted
@@ -61,6 +91,9 @@ sources:
         description: ""
         columns:
           - name: product_id
+            tests:
+               - not_null
+               - unique
           - name: price
           - name: name
           - name: inventory
@@ -71,6 +104,9 @@ sources:
         description: ""
         columns:
           - name: promo_id
+            tests:
+               - not_null
+               - unique
           - name: discount
           - name: status
           - name: _fivetran_deleted
@@ -80,6 +116,9 @@ sources:
         description: ""
         columns:
           - name: user_id
+            tests:
+               - not_null
+               - unique
           - name: updated_at
           - name: address_id
           - name: last_name

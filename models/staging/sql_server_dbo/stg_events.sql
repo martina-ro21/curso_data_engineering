@@ -11,11 +11,11 @@ WITH src_events AS (
 
 renamed_casted AS (
     SELECT
-          event_id
+          {{dbt_utils.generate_surrogate_key(['event_id'])}} AS event_id
          , page_url
          , event_type
          , user_id
-         , product_id
+         , {{rellenyo(product_id)}}
          , session_id
          , created_at
          , order_id

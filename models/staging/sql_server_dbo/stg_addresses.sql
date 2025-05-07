@@ -11,8 +11,8 @@ WITH src_addresses AS (
 
 renamed_casted AS (
     SELECT
-          address_id
-         , zipcode
+         {{ dbt_utils.generate_surrogate_key(['address_id']) }}
+         , zipcode :: INT 
          , country
          , address
          , state

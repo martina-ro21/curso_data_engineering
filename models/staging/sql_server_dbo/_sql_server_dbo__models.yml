@@ -1,12 +1,15 @@
 version: 2
 
 models:
-  - name: addresses
+  - name: stg_addresses
     description: ""
     columns:
       - name: address_id
         data_type: varchar
         description: ""
+        tests:
+         - not_null
+         - unique
 
       - name: zipcode
         data_type: number
@@ -31,8 +34,10 @@ models:
       - name: date_load
         data_type: timestamp_tz
         description: ""
+        tests:
+         - not_null
 
-  - name: events
+  - name: stg_events
     description: ""
     columns:
       - name: event_id
@@ -75,7 +80,7 @@ models:
         data_type: timestamp_tz
         description: ""
 
-  - name: order_items
+  - name: stg_order_items
     description: ""
     columns:
       - name: order_id
@@ -138,7 +143,7 @@ models:
         data_type: timestamp_tz
         description: ""
 
-  - name: orders
+  - name: stg_orders
     description: ""
     columns:
       - name: order_id
@@ -161,7 +166,7 @@ models:
         data_type: timestamp_tz
         description: ""
 
-  - name: products
+  - name: stg_products
     description: ""
     columns:
       - name: product_id
@@ -188,7 +193,7 @@ models:
         data_type: timestamp_tz
         description: ""
 
-  - name: promos
+  - name: stg_promos
     description: ""
     columns:
       - name: promo_id
@@ -211,7 +216,7 @@ models:
         data_type: timestamp_tz
         description: ""
 
-  - name: users
+  - name: stg_users
     description: ""
     columns:
       - name: user_id
