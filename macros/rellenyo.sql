@@ -1,9 +1,9 @@
 {% macro rellenyo(col) %}
 
-    SELECT CASE 
+    CASE 
         WHEN {{col}} = '' THEN 'Valor desconocido'
         WHEN {{col}} = null THEN 'Valor desconocido'
         ELSE {{col}}
-        END
+        END 
 
 {% endmacro %}
