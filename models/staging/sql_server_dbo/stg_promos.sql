@@ -31,7 +31,7 @@ renamed_casted AS (
            {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id
          , lower(promo_id) AS tipo_descuento
          , discount
-         , status
+         , status -- Tener en cuenta que es bastante probable q esto cambie frecuentemente
          , _fivetran_deleted
          , _fivetran_synced as date_load
     FROM unir
