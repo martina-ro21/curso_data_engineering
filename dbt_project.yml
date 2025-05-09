@@ -51,6 +51,6 @@ models:
         +schema: core
 # materialized: view
 
-vars:
+vars: 
   fecha: '2025-05-08'
 

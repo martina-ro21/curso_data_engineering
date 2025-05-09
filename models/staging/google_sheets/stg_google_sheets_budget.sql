@@ -1,8 +1,3 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
 
 WITH src_budget AS (
     SELECT * 
@@ -11,8 +6,8 @@ WITH src_budget AS (
 
 renamed_casted AS (
     SELECT
-          _row
-        , product_id
+          {{ dbt_utils.generate_surrogate_key(['_row','product_id'])}} AS budget_id
+        , {{dbt_utils.generate_surrogate_key(['product_id'])}} AS product_id
         , quantity
         , month
         , _fivetran_synced AS date_load

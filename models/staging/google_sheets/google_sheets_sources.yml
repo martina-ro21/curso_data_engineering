@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+
+  - name: google_sheets # name of the dataset created on dbt
+    schema: google_sheets # this is the schema our raw data lives in
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 1000, period: day}
+
+    tables:
+
+      - name: budget
+        description: Tabla donde se muestran las predicciones de venta de cada producto por mes
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: _row
+            description: Valor unico de la entrada
+            tests:
+              - unique
+              - not_null
+          - name: product_id
+            description: Valor unico del producto esperado
+            tests:
+              - unique
+              - not_null
+              - relationships:
+                  to: source('sql_server_dbo', 'products')
+                  field: product_id
+          - name: quantity
+            description: Cantidad esperada
+            tests:
+              # Saber si los valores introducidos en la cantidad son cero o positivos
+              - positive_values
+          - name: month
+            description: Mes donde se esperan dichos resultados
+          - name: _fivetran_synced

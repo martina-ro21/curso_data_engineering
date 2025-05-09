@@ -2,52 +2,77 @@ version: 2
 
 sources:
   - name: sql_server_dbo
-    description: "Base de datos del negocio"
+    description: Base de datos del negocio
     database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  # this is the name of our database
     tables:
       - name: addresses
-        description: "Direccion de los clientes"
+        description: Direccion de los clientes
         columns:
           - name: address_id
-            description: "Valor unico de la direccion"
+            description: Valor unico de la direccion
             tests:
                - not_null
                - unique
           - name: zipcode
-            description: "Codigo Postal"
+            description: Codigo Postal
           - name: country
-            description: "Pais"
+            description: Pais del cliente
           - name: address
-            description: "Direccion"
+            description: Direccion del cliente
           - name: state
-            description: "Estado del pais en el que esta"
+            description: Estado del pais en el que esta
           - name: _fivetran_deleted
             description: ""
           - name: _fivetran_synced #as date_load
             description: ""
 
       - name: events
-        description: "Movimientos hechos"
+        description: Movimientos hechos dentro de la web
         columns:
            - name: event_id
-             description: "Valor unico de los movimientos"
+             description: Valor unico de los movimientos
              tests:
                - not_null
                - unique
            - name: page_url
-             description: "URL pagina web"
+             description: URL pagina web
            - name: event_type
-             description: "Tipo de movimiento"
+             description: Tipo de movimiento # Hay unicidad de los tipos de eventos?
            - name: user_id
-             description: "Valor unico del usuario"
+             description: Valor unico del usuario
+             tests:
+               - not_null
+               - unique
+               - relationships:
+                   field: user_id
+                   to: source('sql_server_dbo', 'users')
            - name: product_id
-             description: "Valor unico del producto"
+             description: Valor unico del producto
+             tests:
+               - not_null
+               - unique
+               - relationships:
+                   field: product_id
+                   to: source('sql_server_dbo', 'product')
            - name: session_id
-             description: "Valor unico de la sesion"
+             description: Valor unico de la sesion
+             tests:
+               - not_null
+               - unique
+               - relationships:
+                   field: session_id
+                   to: source('sql_server_dbo', 'u') # de donde viene la sesion?
            - name: created_at
-             description: "Cuando fue creada"
+             description: Cuando fue creada
+             # Tengo que hacer un test de que coincidan los tiempos de creacion
            - name: order_id
-             description: "Valor unico de la orden"
+             description: Valor unico de la orden
+             tests:
+               - not_null
+               - unique
+               - relationships:
+                   field: order_id
+                   to: source('sql_server_dbo', 'orders')
            - name: _fivetran_deleted
              description: ""
            - name: _fivetran_synced #as date_load

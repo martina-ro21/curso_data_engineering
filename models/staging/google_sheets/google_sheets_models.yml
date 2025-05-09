@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_google_sheets_budget
+    description: El modelo para la tabla budget
+    columns:
+      - name: budget_id
+        tests:
+         - not_null
+         - unique
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              field: product_id # Aquí habría que poner el de staging?
+              to: ref('stg_sql_dbo_products')
+          

@@ -1,9 +1,3 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
 WITH src_addresses AS (
     SELECT * 
     FROM {{ source('sql_server_dbo', 'addresses') }}
@@ -11,8 +5,8 @@ WITH src_addresses AS (
 
 renamed_casted AS (
     SELECT
-         {{ dbt_utils.generate_surrogate_key(['address_id']) }}
-         , zipcode :: INT 
+         {{ dbt_utils.generate_surrogate_key(['address_id']) }} AS address_id
+         , zipcode 
          , country
          , address
          , state
