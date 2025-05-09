@@ -6,7 +6,7 @@ WITH src_addresses AS (
 renamed_casted AS (
     SELECT
          {{ dbt_utils.generate_surrogate_key(['address_id']) }} AS address_id
-         , lpad('zipcode', 5, '0') as zipcode
+         , lpad(zipcode, 5, '0') as zipcode
          , country
          , address
          , state
