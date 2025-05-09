@@ -11,9 +11,9 @@ WITH src_users AS (
 
 renamed_casted AS (
     SELECT
-           {{ dbt_utils.generate_surrogate_key(['user_id']) }}
+           {{ dbt_utils.generate_surrogate_key(['user_id']) }} as user_id
          , updated_at
-         , {{ dbt_utils.generate_surrogate_key(['address_id']) }}
+         , {{ dbt_utils.generate_surrogate_key(['address_id']) }} as address_id
          , first_name AS nombre
          , last_name AS primer_apellido
          , created_at
