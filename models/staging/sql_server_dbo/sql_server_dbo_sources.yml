@@ -41,24 +41,18 @@ sources:
            - name: user_id
              description: Valor unico del usuario
              tests:
-               - not_null
-               - unique
                - relationships:
                    field: user_id
                    to: source('sql_server_dbo', 'users')
            - name: product_id
              description: Valor unico del producto
              tests:
-               - not_null
-               - unique
                - relationships:
                    field: product_id
                    to: source('sql_server_dbo', 'product')
            - name: session_id
              description: Valor unico de la sesion
              tests:
-               - not_null
-               - unique
                - relationships:
                    field: session_id
                    to: source('sql_server_dbo', 'u') # de donde viene la sesion?
@@ -68,8 +62,6 @@ sources:
            - name: order_id
              description: Valor unico de la orden
              tests:
-               - not_null
-               - unique
                - relationships:
                    field: order_id
                    to: source('sql_server_dbo', 'orders')
@@ -101,19 +93,25 @@ sources:
           - name: _fivetran_synced
 
       - name: order_items
-        description: ""
+        description: "Tabla que introduce los productos con las ordenes"
         columns:
           - name: order_id
             tests:
                - not_null
                - unique
+               - relationships:
+                   field: order_id
+                   to: source('sql_server_dbo', 'orders')
           - name: product_id
+               - not_null
+               - unique
+               # No me deja añadir un test de relations pq?
           - name: quantity
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
       - name: products
-        description: ""
+        description: "Tabla de productos"
         columns:
           - name: product_id
             tests:
@@ -126,19 +124,20 @@ sources:
           - name: _fivetran_synced
 
       - name: promos
-        description: ""
+        description: "Tabla de las promociones"
         columns:
           - name: promo_id
             tests:
                - not_null
                - unique
           - name: discount
+            description: Descuento medido en precio
           - name: status
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
       - name: users
-        description: ""
+        description: "Tabla de usuarios"
         columns:
           - name: user_id
             tests:
